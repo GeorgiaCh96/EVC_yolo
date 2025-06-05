@@ -1,0 +1,13 @@
+{"time":"2025-06-05T13:57:24.1918308+02:00","level":"INFO","msg":"stream: starting","core version":"0.20.1","symlink path":"C:\\Users\\user\\Documents\\TUe\\Q4\\5LIA0 Embedded visual control\\Workshops\\EVC\\workshops\\yolo\\wandb\\run-20250605_135723-ruisjdpt\\logs\\debug-core.log"}
+{"time":"2025-06-05T13:57:24.723847+02:00","level":"INFO","msg":"stream: created new stream","id":"ruisjdpt"}
+{"time":"2025-06-05T13:57:24.7245153+02:00","level":"INFO","msg":"stream: started","id":"ruisjdpt"}
+{"time":"2025-06-05T13:57:24.7245153+02:00","level":"INFO","msg":"handler: started","stream_id":"ruisjdpt"}
+{"time":"2025-06-05T13:57:24.7245153+02:00","level":"INFO","msg":"sender: started","stream_id":"ruisjdpt"}
+{"time":"2025-06-05T13:57:24.7245153+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"ruisjdpt"}
+{"time":"2025-06-05T13:57:25.1035323+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-06-05T14:22:55.777041+02:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/georgia-christodoulou-eindhoven-university-of-technology/EVC/ruisjdpt/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T14:22:56.6142875+02:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T14:22:57.8978903+02:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/georgia-christodoulou-eindhoven-university-of-technology/EVC/ruisjdpt/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T14:22:58.6880059+02:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T14:23:02.5338731+02:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/georgia-christodoulou-eindhoven-university-of-technology/EVC/ruisjdpt/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-06-05T14:23:03.2914726+02:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}

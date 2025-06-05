@@ -1,0 +1,105 @@
+Path to dataset files: C:\Users\user\.cache\kagglehub\datasets\pkdarabi\cardetection\versions\5
+['FisheyeCamera_1_00076_png.rf.c1649fd1ef9e95ffa77a31dcffb825ed.jpg', '00002_00017_00008_png.rf.958d92ad47742185bf2850483fb42da9.jpg', '00000_00002_00022_png.rf.c34d7fa89ba4b6400e3951361be150ec.jpg', 'road106_png.rf.c08042e64483f77ffc79caf216a1d325.jpg', '00008_00012_00007_png.rf.0d06f3d3ba180daeb084ea1043b9ca43.jpg', '00007_00004_00014_png.rf.9ed33753f9311964f7a7160cffe95195.jpg', '00005_00003_00026_png.rf.322acc72947a9ba06606e6eaa2b73dbb.jpg', '00003_00010_00016_png.rf.ab63e6893aa5cbe0d8813dcda58058be.jpg', 'FisheyeCamera_1_01078_png.rf.9c04ceda9eb150b42e265cd7713b980d.jpg']
+['FisheyeCamera_1_00076_png.rf.c1649fd1ef9e95ffa77a31dcffb825ed.jpg', '00002_00017_00008_png.rf.958d92ad47742185bf2850483fb42da9.jpg', '00000_00002_00022_png.rf.c34d7fa89ba4b6400e3951361be150ec.jpg', 'road106_png.rf.c08042e64483f77ffc79caf216a1d325.jpg', '00008_00012_00007_png.rf.0d06f3d3ba180daeb084ea1043b9ca43.jpg', '00007_00004_00014_png.rf.9ed33753f9311964f7a7160cffe95195.jpg', '00005_00003_00026_png.rf.322acc72947a9ba06606e6eaa2b73dbb.jpg', '00003_00010_00016_png.rf.ab63e6893aa5cbe0d8813dcda58058be.jpg', 'FisheyeCamera_1_01078_png.rf.9c04ceda9eb150b42e265cd7713b980d.jpg']
+assigned label:  0
+assigned label:  7
+assigned label:  1
+assigned label:  9
+assigned label:  6
+assigned label:  10
+assigned label:  5
+assigned label:  3
+assigned label:  12
+assigned label:  10
+assigned label:  1
+The image has dimensions 416x416 and 3 channels.
+
+0: 640x640 (no detections), 327.2ms
+Speed: 18.5ms preprocess, 327.2ms inference, 2.1ms postprocess per image at shape (1, 3, 640, 640)
+Ultralytics 8.3.150  Python-3.10.18 torch-2.7.1+cpu CPU (Intel Core(TM) i7-8565U 1.80GHz)
+[34m[1mengine\trainer: [0magnostic_nms=False, amp=True, augment=False, auto_augment=randaugment, batch=-1, bgr=0.0, box=7.5, cache=False, cfg=None, classes=None, close_mosaic=10, cls=0.5, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=C:/Users/user/Downloads/archive/car/data.yaml, degrees=0.0, deterministic=True, device=cpu, dfl=1.5, dnn=False, dropout=0.0, dynamic=False, embed=None, epochs=30, erasing=0.4, exist_ok=False, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, half=False, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=640, int8=False, iou=0.7, keras=False, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=yolov8n.pt, momentum=0.937, mosaic=1.0, multi_scale=False, name=train3, nbs=64, nms=False, opset=None, optimize=False, optimizer=auto, overlap_mask=True, patience=100, perspective=0.0, plots=True, pose=12.0, pretrained=True, profile=False, project=None, rect=False, resume=False, retina_masks=False, save=True, save_conf=False, save_crop=False, save_dir=runs\detect\train3, save_frames=False, save_json=False, save_period=-1, save_txt=False, scale=0.5, seed=0, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=botsort.yaml, translate=0.1, val=True, verbose=True, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=8, workspace=None
+Overriding model.yaml nc=80 with nc=15
+
+                   from  n    params  module                                       arguments
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]
+  2                  -1  1      7360  ultralytics.nn.modules.block.C2f             [32, 32, 1, True]
+  3                  -1  1     18560  ultralytics.nn.modules.conv.Conv             [32, 64, 3, 2]
+  4                  -1  2     49664  ultralytics.nn.modules.block.C2f             [64, 64, 2, True]
+  5                  -1  1     73984  ultralytics.nn.modules.conv.Conv             [64, 128, 3, 2]
+  6                  -1  2    197632  ultralytics.nn.modules.block.C2f             [128, 128, 2, True]
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]
+  8                  -1  1    460288  ultralytics.nn.modules.block.C2f             [256, 256, 1, True]
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]
+ 10                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 11             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 12                  -1  1    148224  ultralytics.nn.modules.block.C2f             [384, 128, 1]
+ 13                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']
+ 14             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 15                  -1  1     37248  ultralytics.nn.modules.block.C2f             [192, 64, 1]
+ 16                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]
+ 17            [-1, 12]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 18                  -1  1    123648  ultralytics.nn.modules.block.C2f             [192, 128, 1]
+ 19                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]
+ 20             [-1, 9]  1         0  ultralytics.nn.modules.conv.Concat           [1]
+ 21                  -1  1    493056  ultralytics.nn.modules.block.C2f             [384, 256, 1]
+ 22        [15, 18, 21]  1    754237  ultralytics.nn.modules.head.Detect           [15, [64, 128, 256]]
+Model summary: 129 layers, 3,013,773 parameters, 3,013,757 gradients, 8.2 GFLOPs
+
+Transferred 319/355 items from pretrained weights
+Freezing layer 'model.22.dfl.conv.weight'
+[34m[1mtrain: [0mFast image access  (ping: 0.30.1 ms, read: 45.716.1 MB/s, size: 24.1 KB)
+[34m[1mtrain: [0mScanning C:\Users\user\Downloads\archive\car\train\labels.cache... 3530 images, 3 backgrounds, 0 corrupt: 100%|██████████| 3530/3530 [00:00<?, ?it/[0m
+[34m[1mAutoBatch: [0mComputing optimal batch size for imgsz=640 at 60.0% CUDA memory utilization.
+WARNING [34m[1mAutoBatch: [0mintended for CUDA devices, using default batch-size 16
+[34m[1mtrain: [0mFast image access  (ping: 0.20.0 ms, read: 74.647.7 MB/s, size: 26.0 KB)
+[34m[1mtrain: [0mScanning C:\Users\user\Downloads\archive\car\train\labels.cache... 3530 images, 3 backgrounds, 0 corrupt: 100%|██████████| 3530/3530 [00:00<?, ?it/[0m
+[34m[1mval: [0mFast image access  (ping: 0.10.1 ms, read: 87.349.0 MB/s, size: 19.9 KB)
+[34m[1mval: [0mScanning C:\Users\user\Downloads\archive\car\valid\labels.cache... 801 images, 0 backgrounds, 0 corrupt: 100%|██████████| 801/801 [00:00<?, ?it/s][0m
+Plotting labels to runs\detect\train3\labels.jpg...
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically...
+[34m[1moptimizer:[0m AdamW(lr=0.000526, momentum=0.9) with parameter groups 57 weight(decay=0.0), 64 weight(decay=0.0005), 63 bias(decay=0.0)
+Image sizes 640 train, 640 val
+Using 0 dataloader workers
+Logging results to [1mruns\detect\train3[0m
+Starting training for 30 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       1/30         0G     0.8434      3.448      1.178         23        640: 100%|██████████| 221/221 [36:39<00:00,  9.95s/it]
+ ... (more hidden) ...
+                   all        801        944      0.157      0.449      0.224      0.174
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+ ... (more hidden) ...
+Traceback (most recent call last):
+  File "C:\Users\user\Documents\TUe\Q4\5LIA0 Embedded visual control\Workshops\EVC\workshops\yolo\main.py", line 124, in <module>
+    Result_Final_model = Final_model.train(data="C:/Users/user/Downloads/archive/car/data.yaml", epochs=EPOCHS, batch=BATCH_SIZE, optimizer='auto')
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\ultralytics\engine\model.py", line 797, in train
+    self.trainer.train()
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\ultralytics\engine\trainer.py", line 227, in train
+    self._do_train(world_size)
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\ultralytics\engine\trainer.py", line 415, in _do_train
+    self.scaler.scale(self.loss).backward()
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\torch\_tensor.py", line 648, in backward
+    torch.autograd.backward(
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\torch\autograd\__init__.py", line 353, in backward
+    _engine_run_backward(
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\torch\autograd\graph.py", line 824, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "C:\Users\user\Documents\TUe\Q4\5LIA0 Embedded visual control\Workshops\EVC\workshops\yolo\main.py", line 124, in <module>
+    Result_Final_model = Final_model.train(data="C:/Users/user/Downloads/archive/car/data.yaml", epochs=EPOCHS, batch=BATCH_SIZE, optimizer='auto')
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\ultralytics\engine\model.py", line 797, in train
+    self.trainer.train()
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\ultralytics\engine\trainer.py", line 227, in train
+    self._do_train(world_size)
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\ultralytics\engine\trainer.py", line 415, in _do_train
+    self.scaler.scale(self.loss).backward()
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\torch\_tensor.py", line 648, in backward
+    torch.autograd.backward(
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\torch\autograd\__init__.py", line 353, in backward
+    _engine_run_backward(
+  File "C:\Users\user\anaconda3\envs\yolo\lib\site-packages\torch\autograd\graph.py", line 824, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+KeyboardInterrupt

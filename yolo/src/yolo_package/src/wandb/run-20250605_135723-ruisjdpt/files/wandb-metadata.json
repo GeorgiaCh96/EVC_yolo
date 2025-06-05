@@ -1,0 +1,27 @@
+{
+  "os":  "Windows-10-10.0.22621-SP0",
+  "python":  "CPython 3.10.18",
+  "startedAt":  "2025-06-05T11:57:24.167304Z",
+  "program":  "C:\\Users\\user\\Documents\\TUe\\Q4\\5LIA0 Embedded visual control\\Workshops\\EVC\\workshops\\yolo\\main.py",
+  "codePath":  "main.py",
+  "email":  "georgia.christodoulou@gmail.com",
+  "root":  "C:\\Users\\user\\Documents\\TUe\\Q4\\5LIA0 Embedded visual control\\Workshops\\EVC\\workshops\\yolo",
+  "host":  "Georgias-PC",
+  "executable":  "C:\\Users\\user\\anaconda3\\envs\\yolo\\python.exe",
+  "codePathLocal":  "main.py",
+  "cpu_count":  4,
+  "cpu_count_logical":  8,
+  "disk":  {
+    "/":  {
+      "total":  "510678528000",
+      "used":  "487350173696"
+    }
+  },
+  "memory":  {
+    "total":  "16941092864"
+  },
+  "cpu":  {
+    "count":  4,
+    "countLogical":  8
+  }
+}
