@@ -1,0 +1,4 @@
+yolo/src/yolo_package/src/*.png
+yolo/src/yolo_package/src/*.jpg
+yolo/src/yolo_package/src/archive/video_inf.mp4
+yolo/src/yolo_package/src/runs/detect/predict3/video_inf.avi
