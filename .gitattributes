@@ -1,0 +1,2 @@
+yolo/src/yolo_package/src/archive/video_inf.mp4 filter=lfs diff=lfs merge=lfs -text
+yolo/src/yolo_package/src/runs/detect/predict3/video_inf.avi filter=lfs diff=lfs merge=lfs -text
