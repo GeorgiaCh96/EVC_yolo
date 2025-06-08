@@ -108,13 +108,24 @@ class Yolov8Detector:
                 #label_msg = String()
                 #label_msg.data = self.model.names[int(cls_id)]
                 #self.object_pub.publish(label_msg)
-                
 
+                # Compress and publish as CompressedImage
+                out = CompressedImage()
+                #out = self.bridge.cv2_to_imgmsg(frame, encoding="bgr8")
+                out.header.stamp = rospy.Time.now()
+                out.format = "jpeg"
+                out.data = self.bridge.cv2_to_imgmsg(frame, encoding="bgr8")                
+                self.annotated_pub.publish(out)
+
+                
                 # print the motion command
                 if int(cls_id) in range(2, 14):
                     rospy.loginfo("Send slow down motion command")
                 elif int(cls_id) in [1, 14]:
                     rospy.loginfo("Send stop command")
+                
+                # publish motion command
+                self.command_pub.publish(class_names[int(classes[0])])
 
 
 
@@ -122,15 +133,15 @@ class Yolov8Detector:
             rospy.logerr("Error processing image: {}".format(e))
 
 
-        # out = self.bridge.cv2_to_imgmsg(frame, encoding="bgr8")
-        # out.header = msg.header                
-        # self.pub.publish(out)
 
 if __name__ == "__main__":
     try:
-        Yolov8Detector()
+        yolo_node = Yolov8Detector()
         rate=rospy.Rate(10)
         # Keep the node running
         rospy.spin()
     except rospy.ROSInterruptException:
         pass
+    finally:
+        yolo_node.cleanup()
+
