@@ -100,7 +100,7 @@ Then run the node
 
 `cd src/yolo_package/src/`
 
-`python camera_processing_node.py`
+`python3 yolov5_det.py`
 
 
 ------------------------------------------

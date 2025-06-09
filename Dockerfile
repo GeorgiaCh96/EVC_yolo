@@ -10,26 +10,48 @@ RUN groupadd --gid $USER_GID $USERNAME && \
     useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME
 
 # Add sudo and Python 3
-RUN apt-get update && \
-    apt-get install -y sudo python3-dev python3-pip && \
+#RUN apt-get update && \
+#    apt-get install -y sudo python3-dev python3-pip && \
     # optional: make python3 the default
-    update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
-    echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME && \
-    chmod 0440 /etc/sudoers.d/$USERNAME
+#    update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
+#    echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME && \
+#    chmod 0440 /etc/sudoers.d/$USERNAME
 
 # Install base packages
-RUN apt-get update && apt-get install -y \
-    git iputils-ping x11-apps sshfs sshpass net-tools \
-    netcat openssh-server avahi-daemon libnss-mdns iproute2 \
-    tmux vim nano curl
+#RUN apt-get update && apt-get install -y \
+#    git iputils-ping x11-apps sshfs sshpass net-tools \
+#    netcat openssh-server avahi-daemon libnss-mdns iproute2 \
+#    tmux vim nano curl
 
-COPY yolo /home/ubuntu/yolo
+
+RUN rm /etc/apt/sources.list.d/ros1-latest.list \
+  && rm /usr/share/keyrings/ros1-latest-archive-keyring.gpg
+
+# ─── Python tooling & OpenCV ───────────────────────────────────────────────
+RUN sudo apt-get update && sudo apt-get install -y \
+      python3-pip \
+    && pip3 install --no-cache-dir opencv-python \
+    && pip3 install --no-cache-dir kaggle gdown tqdm
+
+# ─── PyTorch 1.8.1 CPU-only + TorchVision/Torchaudio ───────────────────────
+RUN pip3 install --no-cache-dir \
+      torch==1.8.1+cpu \
+      torchvision==0.9.1+cpu \
+      torchaudio==0.8.1 \
+      -f https://download.pytorch.org/whl/torch_stable.html
+
+# ─── YOLOv5 (latest) + its requirements ────────────────────────────────────
+#RUN git clone --depth 1 https://github.com/ultralytics/yolov5.git /home/$USERNAME/yolov5 \
+#RUN pip3 install --no-cache-dir -r /home/$USERNAME/yolov5/requirements.txt \
+# && pip3 install --no-cache-dir ultralytics
+
 COPY yolo/requirements.txt /requirements.txt
 # yolov8
 RUN pip3 install --no-cache-dir ultralytics
 # jetson_camera, motion requirements
 RUN pip3 install --no-cache-dir -r /requirements.txt
 
+COPY yolo /home/ubuntu/yolo
 
 # Change ownership ---STEP 1
 RUN chown -R ubuntu:ubuntu /home/ubuntu/yolo
