@@ -51,14 +51,14 @@ DOCKER
 
 First build the container:
 
-`docker build -t yolo_node:latest .`
+`docker build -t yolo_node_new:latest .`
 
 
 To interact with the container you have to explicitly set the ROS_MASTER_URI to the jetson's IP, and ROS_IP to your 
 PC's IPv4 address. Also you have to expose the XML-RPC and TCPROS ports that you defined in the rospy.init_node.
 
 
-`docker run -it --rm -e ROS_MASTER_URI=http://192.168.8.2:11311 -e ROS_IP=192.168.8.248 -p 49100:49100 -p 49101:49101 yolo_node
+`docker run -it --rm -e ROS_MASTER_URI=http://192.168.8.2:11311 -e ROS_IP=192.168.8.248 -p 49100:49100 -p 49101:49101 yolo_node_new
 `
 
 
