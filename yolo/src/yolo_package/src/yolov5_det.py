@@ -38,6 +38,11 @@ class Yolov8Detector:
             CompressedImage,
             queue_size=1
         )
+
+        self.last_pub_time   = rospy.Time(0) 
+        self.last_cmd        = None            
+        self.pub_interval    = rospy.Duration(5.0)
+        self.timer = rospy.Timer(self.pub_interval, self.timer_cb)
         
         self.initialized=True
         rospy.loginfo("YOLO detector node initialized!")
@@ -45,9 +50,8 @@ class Yolov8Detector:
         self.device   = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        print(current_dir)
         try:
-            self.model = YOLO(os.path.join(current_dir, "best.pt")).to(self.device)
+            self.model = YOLO("/home/ubuntu/EVC/workshops/workshop4_motion_1654411/best.pt").to(self.device)
             rospy.loginfo("YOLO Model loaded on %s", self.device)
         except Exception as e:
             rospy.logerr("Could not load YOLO model: {}".format(e))
@@ -87,8 +91,8 @@ class Yolov8Detector:
 
 
         try:
-            cv_image = cv2.imdecode(np.frombuffer(msg.data, np.uint8), cv2.IMREAD_COLOR)
-            img_rgb = cv2.cvtColor(cv_image)#, cv2.COLOR_BGR2RGB)
+            img_rgb = cv2.imdecode(np.frombuffer(msg.data, np.uint8), cv2.IMREAD_COLOR)
+            #img_rgb = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
             #rospy.loginfo("PubSub delay: {}".format((rospy.Time.now() - msg.header.stamp).to_sec()))
 
             #results = self.model(frame)[0]
@@ -97,10 +101,7 @@ class Yolov8Detector:
             boxes   = results.boxes.xyxy.cpu().numpy() 
             scores  = results.boxes.conf.cpu().numpy()  
             classes = results.boxes.cls.cpu().numpy()
-            if classes.size == 0:
-                self.command_pub.publish("no_object")
-                return  
-            rospy.loginfo("Predicted object: {}".format(class_names[int(classes[0])])) 
+            #rospy.loginfo("Predicted object: {}".format(class_names[int(classes[0])])) 
 
             for (x1, y1, x2, y2), cls_id, conf in zip(boxes, classes, scores):
                 label_txt = f"{self.model.names[int(cls_id)]} {conf*100:.0f}%"
@@ -122,14 +123,6 @@ class Yolov8Detector:
                 # out.format = "jpeg"
                 # out.data = self.bridge.cv2_to_imgmsg(frame, encoding="bgr8")                
                 # self.annotated_pub.publish(out)
-
-                
-                out = CompressedImage()
-                out.header.stamp = rospy.Time.now()
-                out.format = "jpeg"
-                out.data = img_rgb.tobytes()
-                self.annotated_pub.publish(out)
-
                 
                 # print the motion command
                 if int(cls_id) in range(2, 14):
@@ -138,10 +131,33 @@ class Yolov8Detector:
                     rospy.loginfo("Send stop command")
                 
                 # publish motion command
-                self.command_pub.publish(class_names[int(classes[0])])
+                if classes.size != 0:
+                    self.last_cmd = class_names[int(classes[0])]
+            
+            success, encoded_image = cv2.imencode(".jpg", img_rgb)
+            if success:  
+                out = CompressedImage()
+                out.header.stamp = rospy.Time.now()
+                out.format = "jpeg"
+                out.data = encoded_image.tobytes()
+                self.annotated_pub.publish(out)
+
+
 
         except Exception as e:
             rospy.logerr("Error processing image: {}".format(e))
+
+    def timer_cb(self, event):
+
+        if self.last_cmd is None:
+            return            
+
+        now = rospy.Time.now()
+        if now - self.last_pub_time >= self.pub_interval:
+            self.command_pub.publish(self.last_cmd)
+            self.last_pub_time = now
+            rospy.loginfo("Published motion command: %s", self.last_cmd)
+
 
 
 
