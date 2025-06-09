@@ -1,0 +1,5 @@
+.git
+.idea
+.gitattributes
+.gitignore
+/src/yolo_package/src/__pycache__

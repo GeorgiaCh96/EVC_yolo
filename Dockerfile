@@ -9,21 +9,6 @@ ARG USER_GID=$USER_UID
 RUN groupadd --gid $USER_GID $USERNAME && \
     useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME
 
-# Add sudo and Python 3
-#RUN apt-get update && \
-#    apt-get install -y sudo python3-dev python3-pip && \
-    # optional: make python3 the default
-#    update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
-#    echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME && \
-#    chmod 0440 /etc/sudoers.d/$USERNAME
-
-# Install base packages
-#RUN apt-get update && apt-get install -y \
-#    git iputils-ping x11-apps sshfs sshpass net-tools \
-#    netcat openssh-server avahi-daemon libnss-mdns iproute2 \
-#    tmux vim nano curl
-
-
 RUN rm /etc/apt/sources.list.d/ros1-latest.list \
   && rm /usr/share/keyrings/ros1-latest-archive-keyring.gpg
 
@@ -55,6 +40,10 @@ COPY yolo /home/ubuntu/yolo
 
 # Change ownership ---STEP 1
 RUN chown -R ubuntu:ubuntu /home/ubuntu/yolo
+
+COPY yolo/startup.sh /home/ubuntu/yolo/startup.sh
+RUN chmod +x /home/ubuntu/yolo/startup.sh && chown ubuntu:ubuntu /home/ubuntu/yolo/startup.sh
+
 
 # Rosdep update
 RUN rosdep update
