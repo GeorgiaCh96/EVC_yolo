@@ -39,20 +39,20 @@ class Yolov8Detector:
             queue_size=1
         )
 
-        self.last_pub_time   = rospy.Time(0) 
+        #self.last_pub_time   = rospy.Time(0) 
         self.last_cmd        = None            
-        self.pub_interval    = rospy.Duration(5.0)
-        self.timer = rospy.Timer(self.pub_interval, self.timer_cb)
+        # self.updated = False
+        # self.pub_interval    = rospy.Duration(5.0)
+        # self.timer = rospy.Timer(self.pub_interval, self.timer_cb)
         
-        self.initialized = True
+        self.initialized=True
         rospy.loginfo("YOLO detector node initialized!")
 
         self.device   = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
         current_dir = os.path.dirname(os.path.abspath(__file__))
         try:
-            self.model = YOLO(os.path.join(current_dir, "best.pt")).to(self.device)
-            #self.model = YOLO("/home/ubuntu/EVC/workshops/workshop4_motion_1654411/best.pt").to(self.device)
+            self.model = YOLO("/home/ubuntu/EVC/workshops/workshop4_motion_1654411/best.pt").to(self.device)
             rospy.loginfo("YOLO Model loaded on %s", self.device)
         except Exception as e:
             rospy.logerr("Could not load YOLO model: {}".format(e))
@@ -126,14 +126,24 @@ class Yolov8Detector:
                 # self.annotated_pub.publish(out)
                 
                 # print the motion command
-                if int(cls_id) in range(2, 14):
-                    rospy.loginfo("Send slow down motion command")
-                elif int(cls_id) in [1, 14]:
-                    rospy.loginfo("Send stop command")
+                # if int(cls_id) in range(2, 14):
+                #     rospy.loginfo("Send slow down motion command")
+                # elif int(cls_id) in [1, 14]:
+                #     rospy.loginfo("Send stop command")
                 
                 # publish motion command
                 if classes.size != 0:
-                    self.last_cmd = class_names[int(classes[0])]
+                    if int(cls_id) in range(2,14):
+                        new_cmd = "G0 100 0.3"
+                    elif int(cls_id) == 14:
+                        new_cmd = "STOP"
+
+                    if new_cmd != self.last_cmd:
+                        self.command_pub.publish(new_cmd)
+
+                    self.last_cmd = new_cmd
+                            
+                    
             
             success, encoded_image = cv2.imencode(".jpg", img_rgb)
             if success:  
@@ -148,16 +158,17 @@ class Yolov8Detector:
         except Exception as e:
             rospy.logerr("Error processing image: {}".format(e))
 
-    def timer_cb(self, event):
+    # def timer_cb(self, event):
 
-        if self.last_cmd is None:
-            return            
+    #     if self.updated is False:
+    #         return            
 
-        now = rospy.Time.now()
-        if now - self.last_pub_time >= self.pub_interval:
-            self.command_pub.publish(self.last_cmd)
-            self.last_pub_time = now
-            rospy.loginfo("Published motion command: %s", self.last_cmd)
+    #     now = rospy.Time.now()
+    #     if now - self.last_pub_time >= self.pub_interval:
+    #         self.command_pub.publish(self.last_cmd)
+    #         self.last_pub_time = now
+    #         self.updated = False
+    #         rospy.loginfo("Published motion command: %s", self.last_cmd)
 
 
 
