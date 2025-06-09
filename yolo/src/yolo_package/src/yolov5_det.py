@@ -44,14 +44,15 @@ class Yolov8Detector:
         self.pub_interval    = rospy.Duration(5.0)
         self.timer = rospy.Timer(self.pub_interval, self.timer_cb)
         
-        self.initialized=True
+        self.initialized = True
         rospy.loginfo("YOLO detector node initialized!")
 
         self.device   = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
         current_dir = os.path.dirname(os.path.abspath(__file__))
         try:
-            self.model = YOLO("/home/ubuntu/EVC/workshops/workshop4_motion_1654411/best.pt").to(self.device)
+            self.model = YOLO(os.path.join(current_dir, "best.pt")).to(self.device)
+            #self.model = YOLO("/home/ubuntu/EVC/workshops/workshop4_motion_1654411/best.pt").to(self.device)
             rospy.loginfo("YOLO Model loaded on %s", self.device)
         except Exception as e:
             rospy.logerr("Could not load YOLO model: {}".format(e))
