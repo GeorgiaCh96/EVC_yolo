@@ -9,8 +9,8 @@ ARG USER_GID=$USER_UID
 RUN groupadd --gid $USER_GID $USERNAME && \
     useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME
 
-RUN rm /etc/apt/sources.list.d/ros1-latest.list \
-  && rm /usr/share/keyrings/ros1-latest-archive-keyring.gpg
+RUN rm -f /etc/apt/sources.list.d/ros1-latest.list \
+  && rm -f /usr/share/keyrings/ros1-latest-archive-keyring.gpg
 
 # ─── Python tooling & OpenCV ───────────────────────────────────────────────
 RUN sudo apt-get update && sudo apt-get install -y \
@@ -30,6 +30,7 @@ RUN pip3 install --no-cache-dir \
 #RUN pip3 install --no-cache-dir -r /home/$USERNAME/yolov5/requirements.txt \
 # && pip3 install --no-cache-dir ultralytics
 
+# jetson_camera, motion requirements
 COPY yolo/requirements.txt /requirements.txt
 # yolov8
 RUN pip3 install --no-cache-dir ultralytics
